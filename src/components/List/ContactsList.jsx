@@ -6,11 +6,14 @@ import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/Contacts/contacts.reducer';
 
 import { Filter } from 'components/Filter/Filter';
+import { Loader } from 'components/Loader';
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('');
   const contacts = useSelector(state => state.contactsStore.contacts);
+  const isLoading = useSelector(state => state.contactsStore.isLoading);
+  const error = useSelector(state => state.contactsStore.error);
 
   const handleFilterChangeState = newFilter => {
     setFilter(newFilter);
@@ -34,6 +37,8 @@ export const ContactsList = () => {
       ) : (
         <p>No contacts available</p>
       )}
+      {error !== null && <p className="error-bage">{error}</p>}
+      {isLoading && <Loader />}
       <ul className="contacts-list">
         {filteredContacts().map(({ id, name, number }) => (
           <li key={id} className="list-name">
