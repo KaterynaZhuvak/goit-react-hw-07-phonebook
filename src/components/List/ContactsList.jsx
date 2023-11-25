@@ -28,6 +28,7 @@ export const ContactsList = () => {
   const handleDeleteContact = id => {
     dispatch(deleteContact(id));
   };
+
   return (
     <StyledList>
       <Filter handleFilterChangeState={handleFilterChangeState} />
@@ -40,9 +41,9 @@ export const ContactsList = () => {
       {error !== null && <p className="error-bage">{error}</p>}
       {isLoading && <Loader />}
       <ul className="contacts-list">
-        {filteredContacts().map(({ id, name, number }) => (
+        {filteredContacts().map(({ id, name, number, avatar }) => (
           <li key={id} className="list-name">
-            <div className="profile-photo"></div>
+            <img className='profile-photo' src={ avatar } />
             <p>
               {name}: {number}
             </p>
