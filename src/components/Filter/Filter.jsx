@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import { StyledFilterInput } from './Styled';
+import { filterContacts } from 'redux/Contacts/contacts.reducer';
 
-export const Filter = ({ handleFilterChangeState }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
   const handleFilterChange = event => {
-    handleFilterChangeState(event.target.value);
+    dispatch(filterContacts(event.target.value));
   };
 
   return (

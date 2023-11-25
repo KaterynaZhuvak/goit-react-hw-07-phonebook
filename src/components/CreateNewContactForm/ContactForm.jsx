@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addContact } from 'redux/Contacts/contacts.reducer';
+import { selectContacts } from 'redux/Contacts/contacts.selectors';
 
 const initialValues = {
   name: '',
@@ -20,10 +21,14 @@ const schema = yup.object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contactsStore.contacts);
+  const contacts = useSelector(selectContacts);
 
   const handleAddContact = contact => {
-    if (contacts.some(item => item.name === contact.name || item.number === contact.number)) {
+    if (
+      contacts.some(
+        item => item.name === contact.name || item.number === contact.number
+      )
+    ) {
       alert('Contact already exists');
       return;
     }

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyledList } from './Styled';
 import { ReactComponent as TrashSvg } from 'icons/trashSvg.svg';
@@ -7,23 +6,27 @@ import { deleteContact } from 'redux/Contacts/contacts.reducer';
 
 import { Filter } from 'components/Filter/Filter';
 import { Loader } from 'components/Loader';
+import {
+  selectContactsError,
+  selectContactsIsLoading,
+  selectFilteredContacts,
+} from 'redux/Contacts/contacts.selectors';
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState('');
-  const contacts = useSelector(state => state.contactsStore.contacts);
-  const isLoading = useSelector(state => state.contactsStore.isLoading);
-  const error = useSelector(state => state.contactsStore.error);
 
-  const handleFilterChangeState = newFilter => {
-    setFilter(newFilter);
-  };
+  const isLoading = useSelector(selectContactsIsLoading);
+  const error = useSelector(selectContactsError);
+  const filteredContacts = useSelector(selectFilteredContacts);
 
-  const filteredContacts = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+  // переносимо в складний селектор для складних обчислень (те саме що і useMemo)!!!
+  // const filteredContacts = () => {
+  //   return contacts.filter(
+  //     contact =>
+  //       contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
+  //       contact.number.toString().includes(filter.toLowerCase().trim())
+  //   );
+  // };
 
   const handleDeleteContact = id => {
     dispatch(deleteContact(id));
@@ -31,22 +34,25 @@ export const ContactsList = () => {
 
   return (
     <StyledList>
-      <Filter handleFilterChangeState={handleFilterChangeState} />
+      <Filter />
 
-      {filteredContacts().length !== 0 ? (
+      {filteredContacts.length !== 0 ? (
         <h1 className="main-title">My contacts</h1>
       ) : (
         <p>No contacts available</p>
       )}
-      {error !== null && <p className="error-bage">{error}</p>}
+      {error !== null && <p>{error}</p>}
       {isLoading && <Loader />}
       <ul className="contacts-list">
-        {filteredContacts().map(({ id, name, number, avatar }) => (
+        {filteredContacts.map(({ id, name, number, avatar }) => (
           <li key={id} className="list-name">
-            <img className='profile-photo' src={ avatar } alt={name} />
-            <p>
-              {name}: {number}
+            <img className="profile-photo" src={avatar} alt={name} />
+            <div>
+              <p>
+              {name}: 
             </p>
+            <p>{number}</p>
+            </div>
             <button
               className="remove-btn"
               type="button"

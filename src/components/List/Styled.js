@@ -24,6 +24,7 @@ export const StyledList = styled.div`
     font-style: normal;
     font-weight: 200;
     line-height: normal;
+    transition: 0.4s;
   }
 
   .list-name:hover,
@@ -39,9 +40,16 @@ export const StyledList = styled.div`
     width: 30px;
     height: 30px;
     position: absolute;
-    top: 25px;
+    top: 50px;
     right: 40px;
     cursor: pointer;
+    transform: translateX(0);
+    transition: 0.4s;
+  }
+
+  .remove-btn:hover,
+  .remove-btn:focus {
+    transform: translateX(0.5rem);
   }
 
   .main-title {
