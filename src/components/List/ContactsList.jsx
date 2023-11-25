@@ -48,10 +48,8 @@ export const ContactsList = () => {
           <li key={id} className="list-name">
             <img className="profile-photo" src={avatar} alt={name} />
             <div>
-              <p>
-              {name}: 
-            </p>
-            <p>{number}</p>
+              <p>{name}:</p>
+              <p>{number}</p>
             </div>
             <button
               className="remove-btn"

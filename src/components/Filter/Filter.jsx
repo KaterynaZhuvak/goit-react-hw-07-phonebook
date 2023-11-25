@@ -13,7 +13,7 @@ export const Filter = () => {
       <div>
         <input
           className="filter-input"
-          placeholder="Search contacts"
+          placeholder="Search contact"
           type="text"
           name="filter"
           onChange={handleFilterChange}
