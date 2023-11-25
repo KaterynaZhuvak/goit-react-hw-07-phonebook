@@ -43,7 +43,7 @@ export const ContactsList = () => {
       <ul className="contacts-list">
         {filteredContacts().map(({ id, name, number, avatar }) => (
           <li key={id} className="list-name">
-            <img className='profile-photo' src={ avatar } />
+            <img className='profile-photo' src={ avatar } alt={name} />
             <p>
               {name}: {number}
             </p>
